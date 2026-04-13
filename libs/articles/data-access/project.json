@@ -1,0 +1,16 @@
+{
+  "name": "articles-data-access",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/articles/data-access/src",
+  "prefix": "cdt",
+  "targets": {
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "{projectRoot}/../../../coverage/libs/articles/data-access"
+      }
+    }
+  }
+}

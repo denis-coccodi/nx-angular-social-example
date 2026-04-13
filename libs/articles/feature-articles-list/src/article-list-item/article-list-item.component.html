@@ -1,0 +1,35 @@
+<div class="article-preview">
+  <div class="article-meta">
+    <a>
+      <img [src]="article().author.image" />
+    </a>
+    <div class="info">
+      <span class="date">
+        {{ article().createdAt | date: 'longDate' }}
+      </span>
+    </div>
+    <button
+      [ngClass]="{
+        'btn-outline-primary': article().favorited,
+        'btn-primary': article().favorited
+      }"
+      class="btn btn-sm pull-xs-right"
+      (click)="toggleFavorite(article())"
+    >
+      <i class="ion-heart"></i>
+      {{ article().favoritesCount }}
+    </button>
+  </div>
+  <a (click)="navigateToArticle.emit(article().slug)" class="preview-link">
+    <h1 data-testid="article-list-title">{{ article().title }}</h1>
+    <p>{{ article().description }}</p>
+    <span>Read more...</span>
+    <ul class="tag-list">
+      @for (tag of article().tagList; track tag) {
+        <li class="tag-default tag-pill tag-outline">
+          {{ tag }}
+        </li>
+      }
+    </ul>
+  </a>
+</div>

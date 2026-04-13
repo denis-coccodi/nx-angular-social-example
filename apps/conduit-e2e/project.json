@@ -1,0 +1,17 @@
+{
+  "name": "conduit-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/conduit-e2e/src",
+  "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["conduit"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/apps/conduit-e2e"],
+      "options": {
+        "config": "apps/conduit-e2e/playwright.config.ts"
+      }
+    }
+  }
+}

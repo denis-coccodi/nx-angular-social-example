@@ -1,0 +1,7 @@
+{
+  "name": "articles-feature-article",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/articles/feature-article/src",
+  "prefix": "cdt"
+}

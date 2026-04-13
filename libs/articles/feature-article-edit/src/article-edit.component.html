@@ -1,0 +1,61 @@
+<div class="editor-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 col-xs-12">
+        <cdt-list-errors></cdt-list-errors>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <fieldset class="form-group">
+            <input
+              formControlName="title"
+              type="text"
+              placeholder="Article Title"
+              class="form-control form-control-lg"
+              data-testid="title-input"
+            />
+            <cdt-input-errors data-testid="title-input-error" [control]="form.controls.title" />
+          </fieldset>
+          <fieldset class="form-group">
+            <input
+              formControlName="description"
+              type="text"
+              placeholder="What's this article about?"
+              class="form-control form-control-lg"
+              data-testid="description-input"
+            />
+            <cdt-input-errors data-testid="description-input-error" [control]="form.controls.description" />
+          </fieldset>
+          <fieldset class="form-group">
+            <textarea
+              formControlName="body"
+              rows="5"
+              type="text"
+              placeholder="Write your article (in markdown)"
+              class="form-control form-control-lg"
+              data-testid="body-textarea"
+            ></textarea>
+            <cdt-input-errors data-testid="body-textarea-error" [control]="form.controls.body" />
+          </fieldset>
+          <fieldset class="form-group">
+            <input
+              formControlName="tagList"
+              type="text"
+              placeholder="Enter Tags"
+              class="form-control form-control-lg"
+              data-testid="tags-textarea"
+            />
+          </fieldset>
+
+          <button
+            data-testid="edit-button-container"
+            class="btn btn-lg btn-primary"
+            [disabled]="form.invalid || form.pending"
+            type="submit"
+            data-testid="publish-article-button"
+          >
+            Publish Article
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

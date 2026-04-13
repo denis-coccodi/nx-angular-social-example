@@ -1,0 +1,9 @@
+<div *isErrorVisible="control()">
+  <ul class="error-messages">
+    @for (error of control().errors | keyvalue; track error) {
+      <li data-testid="error">
+        {{ error.key | errorMapper: error.value }}
+      </li>
+    }
+  </ul>
+</div>

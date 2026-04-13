@@ -1,0 +1,7 @@
+{
+  "name": "profile-feature-profile",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/profile/feature-profile/src",
+  "prefix": "cdt"
+}

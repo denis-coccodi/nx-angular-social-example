@@ -1,0 +1,6 @@
+<cdt-navbar [isLoggedIn]="authStore.loggedIn()" [user]="authStore.user()"></cdt-navbar>
+<router-outlet></router-outlet>
+
+@defer (on idle) {
+  <cdt-footer></cdt-footer>
+}

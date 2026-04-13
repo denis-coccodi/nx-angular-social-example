@@ -1,0 +1,7 @@
+{
+  "name": "core-error-handler",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/core/error-handler/src",
+  "prefix": "cdt"
+}
