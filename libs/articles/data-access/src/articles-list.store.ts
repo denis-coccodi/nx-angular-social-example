@@ -1,18 +1,18 @@
-import { signalStore, withState, withMethods, patchState, withComputed } from '@ngrx/signals';
+import { computed, inject } from '@angular/core';
+import { tapResponse } from '@ngrx/operators';
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { Article } from '@realworld/core/api-types';
+import { setLoaded, setLoading, withCallState } from '@realworld/core/data-access';
+import { concatMap, pipe, tap } from 'rxjs';
 import {
   Articles,
   ArticlesListConfig,
   ArticlesListState,
   articlesListInitialState,
 } from './models/articles-list.model';
-import { computed, inject } from '@angular/core';
-import { ArticlesService } from './services/articles.service';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { concatMap, pipe, tap } from 'rxjs';
-import { setLoaded, setLoading, withCallState } from '@realworld/core/data-access';
-import { tapResponse } from '@ngrx/operators';
 import { ActionsService } from './services/actions.service';
-import { Article } from '@realworld/core/api-types';
+import { ArticlesService } from './services/articles.service';
 
 export const ArticlesListStore = signalStore(
   { providedIn: 'root' },
@@ -34,7 +34,16 @@ export const ArticlesListStore = signalStore(
             tapResponse({
               next: ({ articles, articlesCount }) => {
                 patchState(store, {
-                  articles: { articlesCount: articlesCount, entities: articles },
+                  articles: {
+                    articlesCount: articlesCount,
+                    entities: articles.map((article) => ({
+                      ...article,
+                      author: {
+                        ...article.author,
+                        image: 'assets/images/tiger-emoji.png',
+                      },
+                    })),
+                  },
                   ...setLoaded('getArticles'),
                 });
               },
