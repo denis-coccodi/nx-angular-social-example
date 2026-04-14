@@ -1,15 +1,15 @@
-import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
-import { ArticleState, articleInitialState } from './models/article.model';
 import { inject } from '@angular/core';
-import { ArticlesService } from './services/articles.service';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { concatMap, pipe, switchMap, tap } from 'rxjs';
-import { setLoaded, setLoading, withCallState } from '@realworld/core/data-access';
-import { tapResponse } from '@ngrx/operators';
-import { ActionsService } from './services/actions.service';
 import { Router } from '@angular/router';
+import { tapResponse } from '@ngrx/operators';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { CreateArticle, EditArticle } from '@realworld/core/api-types';
+import { setLoaded, setLoading, withCallState } from '@realworld/core/data-access';
 import { FormErrorsStore } from '@realworld/core/forms';
+import { concatMap, pipe, switchMap, tap } from 'rxjs';
+import { ArticleState, articleInitialState } from './models/article.model';
+import { ActionsService } from './services/actions.service';
+import { ArticlesService } from './services/articles.service';
 
 export const ArticleStore = signalStore(
   { providedIn: 'root' },

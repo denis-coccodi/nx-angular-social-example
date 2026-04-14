@@ -1,12 +1,12 @@
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { setLoaded, withCallState } from '@realworld/core/data-access';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { inject } from '@angular/core';
-import { ActionsService } from '@realworld/articles/data-access';
-import { pipe, switchMap, tap } from 'rxjs';
-import { ProfileService } from './services/profile.service';
-import { ProfileState, profileInitialState } from './models/profile-state.model';
 import { tapResponse } from '@ngrx/operators';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { ActionsService } from '@realworld/articles/data-access';
+import { setLoaded, withCallState } from '@realworld/core/data-access';
+import { pipe, switchMap, tap } from 'rxjs';
+import { ProfileState, profileInitialState } from './models/profile-state.model';
+import { ProfileService } from './services/profile.service';
 
 export const ProfileStore = signalStore(
   { providedIn: 'root' },

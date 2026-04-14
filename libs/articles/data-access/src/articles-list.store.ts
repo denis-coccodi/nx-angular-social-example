@@ -36,13 +36,7 @@ export const ArticlesListStore = signalStore(
                 patchState(store, {
                   articles: {
                     articlesCount: articlesCount,
-                    entities: articles.map((article) => ({
-                      ...article,
-                      author: {
-                        ...article.author,
-                        image: 'assets/images/tiger-emoji.png',
-                      },
-                    })),
+                    entities: articles,
                   },
                   ...setLoaded('getArticles'),
                 });
