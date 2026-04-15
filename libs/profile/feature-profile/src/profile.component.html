@@ -8,26 +8,29 @@
             {{ $username() }}
           </h4>
           <p>{{ $bio() }}</p>
-          <button
-            [hidden]="$isUser()"
-            class="btn btn-sm action-btn"
-            [ngClass]="{
-              'btn-outline-secondary': !$following(),
-              'btn-secondary': $following()
-            }"
-            (click)="toggleFollowing()"
-          >
-            <i class="ion-plus-round"></i>
-            &nbsp; {{ $following() ? 'Unfollow' : 'Follow' }}
-            {{ $username() }}
-          </button>
-          <a
-            [routerLink]="['/settings']"
-            [hidden]="$isUser() === false"
-            class="btn btn-sm btn-outline-secondary action-btn"
-          >
-            <i class="ion-gear-a"></i> Edit Profile Settings
-          </a>
+          <div class="profile-ctas">
+            @if (!$isUser()) {
+              <button
+                class="btn btn-sm action-btn"
+                [ngClass]="{
+                  'btn-outline-secondary': !$following(),
+                  'btn-secondary': $following()
+                }"
+                (click)="toggleFollowing()"
+              >
+                <i class="ion-plus-round"></i>
+                &nbsp; {{ $following() ? 'Unfollow' : 'Follow' }}
+                {{ $username() }}
+              </button>
+            }
+            <a
+              [routerLink]="['/settings']"
+              [hidden]="$isUser() === false"
+              class="btn btn-sm btn-outline-secondary action-btn"
+            >
+              <i class="ion-gear-a"></i> Edit Profile Settings
+            </a>
+          </div>
         </div>
       </div>
     </div>
