@@ -40,9 +40,6 @@ export const AuthStore = signalStore(
               tapResponse({
                 next: ({ user }) => {
                   patchState(store, { user, loggedIn: true });
-                  if (user.token) {
-                    sessionStorage.setItem('token', user.token);
-                  }
                   router.navigateByUrl('/');
                 },
                 error: ({ error }) => formErrorsStore.setErrors(error.errors),
