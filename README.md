@@ -2,3 +2,4 @@
 - Set the backend up to avoid CORS errors.
 - Changed the backend to send a default image instead of breaking the front-end.
 - Reimplemented CRLF cookie Token Auth BE side
+- Fixed Profile follow buttons spacing and visibility update, as it wouldn't hide when viewing own profile
