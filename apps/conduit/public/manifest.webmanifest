@@ -1,0 +1,8 @@
+{
+  "name": "conduit",
+  "short_name": "conduit",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": []
+}

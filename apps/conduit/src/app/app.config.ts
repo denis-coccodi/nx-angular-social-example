@@ -1,8 +1,9 @@
-import { ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { ApplicationConfig, isDevMode, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
+import { provideServiceWorker } from '@angular/service-worker';
 import { AuthGuard } from '@realworld/auth/data-access';
 import { errorHandlingInterceptor } from '@realworld/core/error-handler';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { API_URL } from '@realworld/core/http-client';
 import { environment } from '../environments/environment';
 
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
         },
         {
           path: 'home',
+          canActivate: [AuthGuard],
           loadComponent: () => import('@realworld/home/feature-home').then((m) => m.HomeComponent),
         },
         {
@@ -45,6 +47,7 @@ export const appConfig: ApplicationConfig = {
         },
         {
           path: 'profile',
+          canActivate: [AuthGuard],
           loadChildren: () => import('@realworld/profile/feature-profile').then((profile) => profile.PROFILE_ROUTES),
         },
       ],
@@ -53,5 +56,9 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(withInterceptors([errorHandlingInterceptor])),
     { provide: API_URL, useValue: environment.api_url },
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
 };
