@@ -32,6 +32,15 @@
       "files": ["*.html"],
       "extends": ["plugin:@nx/angular-template"],
       "rules": {}
+    },
+    {
+      "files": ["*-sw.js", "sw-*.js"],
+      "env": {
+        "serviceworker": true
+      },
+      "globals": {
+        "handleApiCacheRequest": "readonly"
+      }
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { ApplicationConfig, isDevMode, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideAppInitializer, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { AuthGuard } from '@realworld/auth/data-access';
@@ -10,6 +10,16 @@ import { environment } from '../environments/environment';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection(),
+    provideAppInitializer(() => {
+      caches.open('conduit-sw-config').then((cache) =>
+        cache.put(
+          '/sw-config.json',
+          new Response(JSON.stringify({ api_url: environment.api_url }), {
+            headers: { 'Content-Type': 'application/json' },
+          }),
+        ),
+      );
+    }),
     provideRouter(
       [
         {
@@ -56,9 +66,14 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(withInterceptors([errorHandlingInterceptor])),
     { provide: API_URL, useValue: environment.api_url },
-    provideServiceWorker('ngsw-worker.js', {
-      enabled: !isDevMode(),
+    // provideServiceWorker('ngsw-worker.js', {
+    //   enabled: !isDevMode(),
+    //   registrationStrategy: 'registerWhenStable:30000',
+    // }),
+    provideServiceWorker('offline-sw.js', {
+      enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000',
+      // registrationStrategy: 'registerImmediately',
     }),
   ],
 };

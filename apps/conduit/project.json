@@ -17,7 +17,13 @@
         "index": "apps/conduit/src/index.html",
         "main": "apps/conduit/src/main.ts",
         "tsConfig": "apps/conduit/tsconfig.app.json",
-        "assets": ["apps/conduit/src/favicon.ico", "apps/conduit/src/assets", "apps/conduit/src/netlify.toml"],
+        "assets": [
+          "apps/conduit/src/favicon.ico",
+          "apps/conduit/src/assets",
+          "apps/conduit/src/netlify.toml",
+          "apps/conduit/src/offline-sw.js",
+          "apps/conduit/src/sw-idb-cache.js"
+        ],
         "styles": ["apps/conduit/src/styles.scss"],
         "scripts": [],
         "serviceWorker": true,
@@ -50,6 +56,22 @@
               "maximumError": "10kb"
             }
           ]
+        },
+        "debug": {
+          "fileReplacements": [
+            {
+              "replace": "apps/conduit/src/environments/environment.ts",
+              "with": "apps/conduit/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": false,
+          "outputHashing": "all",
+          "sourceMap": true,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": false,
+          "serviceWorker": true
         },
         "development": {
           "buildOptimizer": false,
