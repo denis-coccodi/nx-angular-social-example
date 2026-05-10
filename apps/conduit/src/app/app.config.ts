@@ -60,6 +60,10 @@ export const appConfig: ApplicationConfig = {
           canActivate: [AuthGuard],
           loadChildren: () => import('@realworld/profile/feature-profile').then((profile) => profile.PROFILE_ROUTES),
         },
+        {
+          path: '**',
+          redirectTo: 'home',
+        },
       ],
       withViewTransitions(),
       withComponentInputBinding(),
