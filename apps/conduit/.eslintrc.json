@@ -39,7 +39,11 @@
         "serviceworker": true
       },
       "globals": {
-        "handleApiCacheRequest": "readonly"
+        "_IMG_EXT": "readonly",
+        "isImageRequest": "readonly",
+        "handleImageCacheRequest": "readonly",
+        "handleApiCacheRequest": "readonly",
+        "syncFavorites": "readonly"
       }
     }
   ]

@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nx run conduit:serve --host 0.0.0.0 --configuration=debug",
     "build": "npx nx run conduit:build --configuration=production",
-    "start-sw": "npx nx build conduit --configuration=debug && npx http-server dist/apps/conduit -p 4200 -c-1 --spa",
+    "start-sw": "nx reset && npx nx build conduit --configuration=debug && npx http-server dist/apps/conduit -p 4200 -c-1 --spa",
     "lint": "npx nx affected -t lint",
     "format": "npx nx format:check --affected",
     "format:write": "npx nx format:write --affected",

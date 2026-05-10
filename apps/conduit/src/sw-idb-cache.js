@@ -60,6 +60,80 @@ function _putApiCacheResponse(url, response) {
 }
 
 /**
+ * Searches all cached GET responses for an article matching the slug.
+ * Looks inside both single-article ({ article }) and list ({ articles }) payloads.
+ * @param {string} slug
+ * @returns {Promise<object|null>}
+ */
+function getArticleFromApiCache(slug) {
+  return _openApiCacheDb().then(
+    (db) =>
+      new Promise((resolve) => {
+        const tx = db.transaction(_IDB_CACHE_STORE, 'readonly');
+        const req = tx.objectStore(_IDB_CACHE_STORE).getAll();
+        req.onsuccess = () => {
+          for (const entry of req.result) {
+            try {
+              const data = JSON.parse(entry.body);
+              if (data.article?.slug === slug) return resolve(data.article);
+              const found = Array.isArray(data.articles) && data.articles.find((a) => a.slug === slug);
+              if (found) return resolve(found);
+            } catch { /* non-JSON entry, skip */ }
+          }
+          resolve(null);
+        };
+        req.onerror = () => resolve(null);
+      }),
+  );
+}
+
+/**
+ * Patches favorited + favoritesCount for a given slug across all cached GET responses.
+ * @param {string} slug
+ * @param {boolean} favorited
+ * @param {number} favoritesCount
+ */
+function patchArticleInApiCache(slug, favorited, favoritesCount) {
+  return _openApiCacheDb().then(
+    (db) =>
+      new Promise((resolve, reject) => {
+        const tx = db.transaction(_IDB_CACHE_STORE, 'readwrite');
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+
+        const store = tx.objectStore(_IDB_CACHE_STORE);
+        const getAllReq = store.getAll();
+        getAllReq.onsuccess = () => {
+          for (const entry of getAllReq.result) {
+            let data;
+            try { data = JSON.parse(entry.body); } catch { continue; /* non-JSON entry */ }
+            let changed = false;
+
+            if (data.article?.slug === slug) {
+              data.article.favorited = favorited;
+              data.article.favoritesCount = favoritesCount;
+              changed = true;
+            }
+            if (Array.isArray(data.articles)) {
+              const a = data.articles.find((a) => a.slug === slug);
+              if (a) {
+                a.favorited = favorited;
+                a.favoritesCount = favoritesCount;
+                changed = true;
+              }
+            }
+            if (changed) {
+              entry.body = JSON.stringify(data);
+              store.put(entry);
+            }
+          }
+        };
+        getAllReq.onerror = () => reject(getAllReq.error);
+      }),
+  );
+}
+
+/**
  * Network-first handler for API GET requests.
  * On success the response is cached in IndexedDB.
  * On network failure the cached entry is returned if present; otherwise a 503.

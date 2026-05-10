@@ -22,7 +22,9 @@
           "apps/conduit/src/assets",
           "apps/conduit/src/netlify.toml",
           "apps/conduit/src/offline-sw.js",
-          "apps/conduit/src/sw-idb-cache.js"
+          "apps/conduit/src/sw-image-cache.js",
+          "apps/conduit/src/sw-idb-cache.js",
+          "apps/conduit/src/sw-favorites-sync.js"
         ],
         "styles": ["apps/conduit/src/styles.scss"],
         "scripts": [],
