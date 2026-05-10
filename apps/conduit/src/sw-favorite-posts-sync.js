@@ -88,7 +88,9 @@ async function handleFavoriteRequest(request) {
   try {
     const response = await fetch(request.clone());
     // We are online — drain pending offline actions as a piggyback side-effect.
-    syncFavorites().catch(() => {});
+    syncFavorites().catch(() => {
+      /* background sync will retry automatically, so we can ignore errors here */
+    });
     return response;
   } catch {
     // ── offline path ──────────────────────────────────────────────────────
