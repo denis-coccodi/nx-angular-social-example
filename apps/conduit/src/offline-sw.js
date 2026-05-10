@@ -28,10 +28,29 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(handleApiCacheRequest(event.request));
 });
 
+// Offline favorite/unfavorite — intercept before ngsw so we can respond optimistically.
+self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'POST' && event.request.method !== 'DELETE') return;
+  try {
+    if (!/\/api\/articles\/[^/]+\/favorite$/.test(new URL(event.request.url).pathname)) return;
+  } catch {
+    return;
+  }
+  event.respondWith(handleFavoriteRequest(event.request));
+});
+
 importScripts('./ngsw-worker.js');
 
 self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-favorites') {
+    event.waitUntil(syncFavorites());
+  }
+});
+
+// Fallback: Angular posts 'sync-favorites' on the window online event so sync
+// runs even in browsers where the Background Sync API doesn't fire automatically.
+self.addEventListener('message', (event) => {
+  if (event.data === 'sync-favorites') {
     event.waitUntil(syncFavorites());
   }
 });

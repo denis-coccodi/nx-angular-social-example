@@ -15,5 +15,8 @@ export class AppComponent {
 
   constructor() {
     this.authStore.getUser();
+    window.addEventListener('online', () => {
+      navigator.serviceWorker.controller?.postMessage('sync-favorites');
+    });
   }
 }

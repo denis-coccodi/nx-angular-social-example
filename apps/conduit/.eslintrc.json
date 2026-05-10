@@ -42,7 +42,10 @@
         "_IMG_EXT": "readonly",
         "isImageRequest": "readonly",
         "handleImageCacheRequest": "readonly",
+        "getArticleFromApiCache": "readonly",
+        "patchArticleInApiCache": "readonly",
         "handleApiCacheRequest": "readonly",
+        "handleFavoriteRequest": "readonly",
         "syncFavorites": "readonly"
       }
     }
