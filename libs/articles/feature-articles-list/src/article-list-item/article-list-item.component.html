@@ -10,8 +10,8 @@
     </div>
     <button
       [ngClass]="{
-        'btn-outline-primary': article().favorited,
-        'btn-primary': article().favorited
+        'btn-primary': article().favorited,
+        'btn-outline-primary': !article().favorited
       }"
       class="btn btn-sm pull-xs-right"
       (click)="toggleFavorite(article())"
