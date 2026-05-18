@@ -64,6 +64,8 @@
           </button>
         </form>
         <hr />
+        <h4>Dark Mode: <input type="checkbox" [checked]="darkMode" (change)="toggleDarkMode()" /></h4>
+        <hr />
         <button class="btn btn-outline-danger" (click)="logout()">Or click here to logout.</button>
       </div>
     </div>

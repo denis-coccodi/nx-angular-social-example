@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthStore } from '@realworld/auth/data-access';
+import { SettingsStore } from '@realworld/settings/data-access';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 
@@ -12,6 +13,7 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 })
 export class AppComponent {
   protected readonly authStore = inject(AuthStore);
+  protected readonly settingsStore = inject(SettingsStore);
 
   constructor() {
     this.authStore.getUser();
