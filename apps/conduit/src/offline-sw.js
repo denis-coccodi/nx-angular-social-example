@@ -1,6 +1,6 @@
 importScripts('./sw-image-cache.js');
 importScripts('./sw-idb-cache.js');
-importScripts('./sw-favorites-sync.js');
+importScripts('./sw-favorite-posts-sync.js');
 
 // A request is an API GET if its path starts with /api/ and is not an image.
 // Exclude image paths to avoid double-respondWith conflicts with the image handler.
