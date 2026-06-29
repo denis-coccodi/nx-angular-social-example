@@ -27,7 +27,9 @@
     "@ngrx/signals": "21.0.1",
     "@nx/angular": "22.6.1",
     "marked": "5.0.1",
-    "rxjs": "7.8.2"
+    "rxjs": "7.8.2",
+    "single-spa": "^6.0.3",
+    "single-spa-angular": "^21.0.2"
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "2.1.3",
