@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx run conduit:serve --host 0.0.0.0 --configuration=debug",
+    "serve:single-spa": "nx run conduit:serve-single-spa",
     "build": "npx nx run conduit:build --configuration=production",
     "start-sw": "nx reset && npx nx build conduit --configuration=debug && npx http-server dist/apps/conduit -p 4200 -c-1 --spa",
     "lint": "npx nx affected -t lint",
