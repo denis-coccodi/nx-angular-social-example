@@ -99,6 +99,34 @@
       "defaultConfiguration": "development",
       "continuous": true
     },
+    "build-single-spa": {
+      "executor": "@angular-devkit/build-angular:application",
+      "options": {
+        "outputPath": "dist/apps/conduit-single-spa",
+        "browser": "apps/conduit/src/main.single-spa.ts",
+        "tsConfig": "apps/conduit/tsconfig.single-spa.json",
+        "index": false,
+        "polyfills": [],
+        "outputHashing": "none",
+        "inlineStyleLanguage": "scss",
+        "styles": ["apps/conduit/src/styles.scss"],
+        "assets": [],
+        "optimization": false,
+        "sourceMap": true
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "serve-single-spa": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "continuous": true,
+      "options": {
+        "port": 4202,
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        },
+        "buildTarget": "conduit:build-single-spa"
+      }
+    },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
